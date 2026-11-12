@@ -1,0 +1,24 @@
+digraph ER {
+  graph [rankdir=LR, bgcolor="white", pad=0.25, nodesep=0.50, ranksep=0.95, splines=polyline, label="Чудо Обувь — схема БД (3НФ)\nСвязи: FK (много) → PK (один)", labelloc=t, fontsize=20, fontname="DejaVu Sans", fontcolor="#214a45"];
+  node [shape=plaintext, fontname="DejaVu Sans", fontsize=11];
+  edge [color="#5D8F89", penwidth=1.4, arrowsize=0.6, fontname="DejaVu Sans", fontsize=9];
+  Categories [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F4FAF7" COLOR="#75A89A"><TR><TD BGCOLOR="#D2F6E7"><B>Categories</B></TD></TR><TR><TD ALIGN="LEFT">Id (PK)</TD></TR><TR><TD ALIGN="LEFT">Name</TD></TR></TABLE>>];
+  Subcategories [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F4FAF7" COLOR="#75A89A"><TR><TD BGCOLOR="#D2F6E7"><B>Subcategories</B></TD></TR><TR><TD ALIGN="LEFT">Id (PK)</TD></TR><TR><TD ALIGN="LEFT">Name</TD></TR></TABLE>>];
+  Manufacturers [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F4FAF7" COLOR="#75A89A"><TR><TD BGCOLOR="#D2F6E7"><B>Manufacturers</B></TD></TR><TR><TD ALIGN="LEFT">Id (PK)</TD></TR><TR><TD ALIGN="LEFT">Name</TD></TR></TABLE>>];
+  Sizes [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F4FAF7" COLOR="#75A89A"><TR><TD BGCOLOR="#D2F6E7"><B>Sizes</B></TD></TR><TR><TD ALIGN="LEFT">Id (PK)</TD></TR><TR><TD ALIGN="LEFT">Value</TD></TR></TABLE>>];
+  Roles [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F4FAF7" COLOR="#75A89A"><TR><TD BGCOLOR="#D2F6E7"><B>Roles</B></TD></TR><TR><TD ALIGN="LEFT">Id (PK)</TD></TR><TR><TD ALIGN="LEFT">Name</TD></TR></TABLE>>];
+  Users [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F4FAF7" COLOR="#75A89A"><TR><TD BGCOLOR="#D2F6E7"><B>Users</B></TD></TR><TR><TD ALIGN="LEFT">Id (PK)</TD></TR><TR><TD ALIGN="LEFT">Surname</TD></TR><TR><TD ALIGN="LEFT">FirstName</TD></TR><TR><TD ALIGN="LEFT">Patronymic</TD></TR><TR><TD ALIGN="LEFT">Login (UQ)</TD></TR><TR><TD ALIGN="LEFT">RoleId (FK)</TD></TR></TABLE>>];
+  Products [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F4FAF7" COLOR="#75A89A"><TR><TD BGCOLOR="#D2F6E7"><B>Products</B></TD></TR><TR><TD ALIGN="LEFT">Id (PK)</TD></TR><TR><TD ALIGN="LEFT">CategoryId (FK)</TD></TR><TR><TD ALIGN="LEFT">SubcategoryId (FK)</TD></TR><TR><TD ALIGN="LEFT">ManufacturerId (FK)</TD></TR><TR><TD ALIGN="LEFT">ImageFile</TD></TR><TR><TD ALIGN="LEFT">Name</TD></TR><TR><TD ALIGN="LEFT">Description</TD></TR><TR><TD ALIGN="LEFT">Composition</TD></TR><TR><TD ALIGN="LEFT">Price</TD></TR></TABLE>>];
+  Stock [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F4FAF7" COLOR="#75A89A"><TR><TD BGCOLOR="#D2F6E7"><B>Stock</B></TD></TR><TR><TD ALIGN="LEFT">Id (PK)</TD></TR><TR><TD ALIGN="LEFT">ProductId (FK)</TD></TR><TR><TD ALIGN="LEFT">SizeId (FK)</TD></TR><TR><TD ALIGN="LEFT">Quantity</TD></TR><TR><TD ALIGN="LEFT">UQ(ProductId,SizeId)</TD></TR></TABLE>>];
+  Orders [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F4FAF7" COLOR="#75A89A"><TR><TD BGCOLOR="#D2F6E7"><B>Orders</B></TD></TR><TR><TD ALIGN="LEFT">Id (PK, IDENTITY)</TD></TR><TR><TD ALIGN="LEFT">OrderDate</TD></TR><TR><TD ALIGN="LEFT">UserId (FK)</TD></TR></TABLE>>];
+  OrderItems [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F4FAF7" COLOR="#75A89A"><TR><TD BGCOLOR="#D2F6E7"><B>OrderItems</B></TD></TR><TR><TD ALIGN="LEFT">Id (PK, IDENTITY)</TD></TR><TR><TD ALIGN="LEFT">OrderId (FK)</TD></TR><TR><TD ALIGN="LEFT">StockId (FK)</TD></TR><TR><TD ALIGN="LEFT">Quantity</TD></TR><TR><TD ALIGN="LEFT">UnitPrice</TD></TR></TABLE>>];
+  Products -> Categories [label="CategoryId"];
+  Products -> Subcategories [label="SubcategoryId"];
+  Products -> Manufacturers [label="ManufacturerId"];
+  Stock -> Products [label="ProductId"];
+  Stock -> Sizes [label="SizeId"];
+  Users -> Roles [label="RoleId"];
+  Orders -> Users [label="UserId"];
+  OrderItems -> Orders [label="OrderId"];
+  OrderItems -> Stock [label="StockId"];
+}
